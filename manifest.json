@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "AI Auto Sender",
+  "version": "1.0.4",
+  "description": "Send a message repeatedly to an open AI chat conversation.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://chatgpt.com/*",
+    "https://gemini.google.com/*",
+    "https://claude.ai/*"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "action": {
+    "default_title": "AI Auto Sender",
+    "default_popup": "popup/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://gemini.google.com/*",
+        "https://claude.ai/*"
+      ],
+      "js": [
+        "adapters/base.js",
+        "adapters/chatgpt.js",
+        "adapters/gemini.js",
+        "adapters/claude.js",
+        "content/automation-engine.js",
+        "content/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
